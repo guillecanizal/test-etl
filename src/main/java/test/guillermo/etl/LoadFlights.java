@@ -1,6 +1,7 @@
 package test.guillermo.etl;
 
 import com.google.inject.Inject;
+import test.guillermo.database.DBManager;
 import test.guillermo.database.dao.LoadDAO;
 import test.guillermo.etl.model.CSVModel;
 
@@ -12,12 +13,16 @@ import java.util.List;
 public class LoadFlights extends Load {
 
     @Inject
-    public LoadFlights(LoadDAO loadDAO) {
-        super(loadDAO);
+    public LoadFlights(DBManager dbManager, LoadDAO loadDAO) {
+        super(dbManager, loadDAO);
     }
 
     @Override
     public boolean execute(List<CSVModel> models) {
-        return loadDAO.loadFlightsInDB(models);
+
+        dbManager.openConnection();
+        boolean response= loadDAO.loadFlightsInDB(models);
+        dbManager.closeConnection();
+        return response;
     }
 }

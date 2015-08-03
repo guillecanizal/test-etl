@@ -6,6 +6,7 @@ import com.datastax.driver.core.PreparedStatement;
 import com.datastax.driver.core.Session;
 import com.datastax.driver.mapping.Mapper;
 import com.datastax.driver.mapping.MappingManager;
+import test.guillermo.database.cassandra.CassandraDBManager;
 import test.guillermo.database.cassandra.models.CassandraFlight;
 import test.guillermo.database.dao.LoadDAO;
 import test.guillermo.etl.model.CSVModel;
@@ -17,12 +18,12 @@ import java.util.List;
 /**
  * Created by guillecanizal on 03/08/15.
  */
-public class CassandraLoadDAO implements LoadDAO {
+public class CassandraLoadDAO extends LoadDAO {
 
 
     private void saveIndexQueryOne(Session session, CassandraFlight f) {
         PreparedStatement statement = session.prepare(
-                "INSERT INTO testguillermo.queryone (FL_NUM,ORIGIN_AIRPORT_ID,DEP_TIME) VALUES (?,?,?)"
+                "INSERT INTO " + ((CassandraDBManager) this.dbManager).getDbName()+ ".queryone (FL_NUM,ORIGIN_AIRPORT_ID,DEP_TIME) VALUES (?,?,?)"
 
         );
         BoundStatement bs = statement.bind();
@@ -34,7 +35,7 @@ public class CassandraLoadDAO implements LoadDAO {
 
     private void saveIndexQueryTwo(Session session, CassandraFlight f) {
         PreparedStatement statement = session.prepare(
-                "INSERT INTO testguillermo.querytwo (AIR_TIME, CARRIER, ORIGIN, DEST) VALUES (?,?,?,?)"
+                "INSERT INTO " + ((CassandraDBManager) this.dbManager).getDbName()+ ".querytwo (AIR_TIME, CARRIER, ORIGIN, DEST) VALUES (?,?,?,?)"
 
         );
         BoundStatement bs = statement.bind();
@@ -50,11 +51,8 @@ public class CassandraLoadDAO implements LoadDAO {
         System.out.println("Load into Cassandra");
         boolean response = true;
         try {
-            Cluster cluster = Cluster.builder().addContactPoint("localhost")
-                    .build();
-            Session session = cluster.connect();
-            MappingManager manager = new MappingManager(session);
-            Mapper mapper = manager.mapper(CassandraFlight.class);
+
+            Mapper mapper = ((CassandraDBManager)this.dbManager).getManager().mapper(CassandraFlight.class);
             //BatchStatement batch = new BatchStatement();
 
             Iterator<CSVModel> flightsIterator = models.iterator();
@@ -63,12 +61,10 @@ public class CassandraLoadDAO implements LoadDAO {
                 CassandraFlight cassandraFlight = this.transformFlight(f);
                 //System.out.println(f.getId());
                 mapper.saveAsync(cassandraFlight);
-                saveIndexQueryOne(session, cassandraFlight);
-                saveIndexQueryTwo(session, cassandraFlight);
+                saveIndexQueryOne(((CassandraDBManager)this.dbManager).getSession(), cassandraFlight);
+                saveIndexQueryTwo(((CassandraDBManager)this.dbManager).getSession(), cassandraFlight);
 
             }
-            session.close();
-            cluster.close();
         } catch (Exception e) {
             e.printStackTrace();
             response = false;

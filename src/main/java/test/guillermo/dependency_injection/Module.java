@@ -2,6 +2,8 @@ package test.guillermo.dependency_injection;
 
 import com.google.inject.AbstractModule;
 import com.google.inject.name.Names;
+import test.guillermo.database.DBManager;
+import test.guillermo.database.cassandra.CassandraDBManager;
 import test.guillermo.database.cassandra.daos.CassandraLoadDAO;
 import test.guillermo.database.dao.LoadDAO;
 import test.guillermo.etl.*;
@@ -23,7 +25,7 @@ public class Module extends AbstractModule {
 
         Names.bindProperties(binder(), propsWS);
 
-
+        bind(DBManager.class).to(CassandraDBManager.class);
         bind(LoadDAO.class).to(CassandraLoadDAO.class);
 
         bind(Extract.class).to(ExtractCSV.class);
