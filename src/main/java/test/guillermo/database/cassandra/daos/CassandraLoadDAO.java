@@ -79,7 +79,7 @@ public class CassandraLoadDAO extends LoadDAO {
         cF.setActualElapsedTime(f.getActualElapsedTime());
         cF.setAirlineId(f.getAirlineId());
         cF.setAirTime(f.getAirTime());
-        cF.setArrTime(f.getFlDate());
+        cF.setFlDate(f.getFlDate());
         cF.setCarrier(f.getCarrier());
         cF.setDayOfMonth(f.getDayOfMonth());
         cF.setDepTime(f.getDepTime());

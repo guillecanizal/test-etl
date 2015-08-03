@@ -6,6 +6,8 @@ import test.guillermo.database.DBManager;
 import test.guillermo.database.cassandra.CassandraDBManager;
 import test.guillermo.database.cassandra.daos.CassandraLoadDAO;
 import test.guillermo.database.dao.LoadDAO;
+import test.guillermo.database.mongodb.MongoDBManager;
+import test.guillermo.database.mongodb.daos.MongoLoadDAO;
 import test.guillermo.etl.*;
 
 import java.io.InputStream;
@@ -14,7 +16,7 @@ import java.util.Properties;
 /**
  * Created by guillecanizal on 10/07/15.
  */
-public class Module extends AbstractModule {
+public class ModuleMongo extends AbstractModule {
 
     private static final String PROPERTIES = "/test-etl.properties";
 
@@ -25,8 +27,8 @@ public class Module extends AbstractModule {
 
         Names.bindProperties(binder(), propsWS);
 
-        bind(DBManager.class).to(CassandraDBManager.class);
-        bind(LoadDAO.class).to(CassandraLoadDAO.class);
+        bind(DBManager.class).to(MongoDBManager.class);
+        bind(LoadDAO.class).to(MongoLoadDAO.class);
 
         bind(Extract.class).to(ExtractCSV.class);
         bind(Transform.class).to(TransformFlights.class);
