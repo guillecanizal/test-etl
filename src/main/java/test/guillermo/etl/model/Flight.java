@@ -1,49 +1,29 @@
-package test.guillermo.mapper;
+package test.guillermo.etl.model;
 
 import java.sql.Date;
-
-import com.datastax.driver.mapping.annotations.Column;
-import com.datastax.driver.mapping.annotations.PartitionKey;
-import com.datastax.driver.mapping.annotations.Table;
 
 /**
  * Created by guillecanizal on 22/06/15.
  */
-@Table(keyspace = "testguillermo", name ="flights")
-public class Flight
-{
+public class Flight implements CSVModel {
 
-    @PartitionKey
     private int id;
     private int year;
-    @Column(name = "day_of_month")
     private int dayOfMonth;
-    @Column(name = "fl_date")
-    private Date flDate ;
-    @Column(name = "airline_id")
+    private Date flDate;
     private int airlineId;
     private String carrier;
-    @Column(name = "fl_num")
     private int flNum;
-    @Column(name = "origin_airport_id")
     private int originAirportId;
     private String origin;
-    @Column(name = "origin_city_name")
     private String originCityName;
-    @Column(name = "origin_state_abr")
     private String originStateAbr;
     private String dest;
-    @Column(name = "dest_city_name")
     private String destCityName;
-    @Column(name = "dest_state_abr")
     private String destStateAbr;
-    @Column(name = "dep_time")
     private Date depTime;
-    @Column(name = "arr_time")
     private Date arrTime;
-    @Column(name = "actual_elapsed_time")
     private Date actualElapsedTime;
-    @Column(name = "air_time")
     private Date airTime;
     private int distance;
 
@@ -198,11 +178,6 @@ public class Flight
     public void setDistance(int distance) {
         this.distance = distance;
     }
-
-
-
-
-
 
 
 }

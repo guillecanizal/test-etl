@@ -1,57 +1,22 @@
 package test.guillermo.etl;
 
-import java.io.BufferedReader;
-import java.io.FileReader;
-import java.io.IOException;
-import java.util.ArrayList;
+import com.google.inject.Inject;
+import com.google.inject.name.Named;
+
 import java.util.List;
 
 /**
- * Created by guillecanizal on 22/06/15.
+ * Created by guillecanizal on 03/08/15.
  */
-public class Extract
-{
+public abstract class Extract {
 
-   public List<String[]> extractDataFromCSV()
-   {
+    protected String filePath;
 
-       System.out.println("Extract CSV");
-       List<String[]> csvLines = new ArrayList<String[]>();
-       String csvFile = "flights_from_pg.csv";
-       BufferedReader br = null;
-       String line = "";
-       String cvsSplitBy = ",";
+    public abstract List<String[]> execute();
 
-       try {
-
-           br = new BufferedReader(new FileReader(csvFile));
-           while ((line = br.readLine()) != null) {
-
-               // use comma as separator
-               String[] flight = line.split(cvsSplitBy);
-              // System.out.println(flight[0]);
-               csvLines.add(flight);
-
-           }
-
-       } catch (Exception e) {
-           e.printStackTrace();
-       } finally {
-           if (br != null) {
-               try {
-                   br.close();
-               } catch (IOException e) {
-                   e.printStackTrace();
-               }
-           }
-       }
-       System.out.println("End Extract CSV");
-       return csvLines;
-   }
-    public static void main(String args[])
-    {
-        Extract e = new Extract();
-        e.extractDataFromCSV();
+    @Inject
+    public Extract(@Named("csv-path") final String filePath) {
+        this.filePath = filePath;
     }
 
 }
