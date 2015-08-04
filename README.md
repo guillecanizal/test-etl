@@ -14,6 +14,8 @@ A CSV file is extracted and loaded into a string array in memory, then it is tra
 - [MongoDB Driver](http://docs.mongodb.org/ecosystem/drivers/java/)
 - [MongoDB Morphia](https://github.com/mongodb/morphia)
 - [Cassandra Driver and Mapping] (http://docs.datastax.com/en/developer/java-driver/2.0/java-driver/whatsNew2.html)
+- [Spark](http://sparkjava.com/)
+- [Freemarker](http://freemarker.org/)
 
 ### 2) Data Bases:
 - [MongoDB V3](https://www.mongodb.com/)

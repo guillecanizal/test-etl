@@ -1,2 +1,2 @@
-select FL_NUM, DEP_TIME from testguillermo.queryone  where origin_airport_id=12478 order by DEP_TIME asc;
-select * from testguillermo.querytwo where carrier = 'AA' and air_time > '1970-01-01 03:39:00' and air_time < '1970-01-01 03:49:00' ;
+select FL_NUM, DEP_TIME from testetl.queryone  where origin_airport_id=12478 order by DEP_TIME asc;
+select * from testetl.querytwo where carrier = 'AA' and air_time > '1970-01-01 03:39:00' and air_time < '1970-01-01 03:49:00' ;
