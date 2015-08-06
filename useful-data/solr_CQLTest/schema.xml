@@ -32,13 +32,13 @@
         <field name="year" type="int" indexed="false" stored="false"/>
         <field name="fl_date" type="date" indexed="false" stored="false"/>
         <field name="airline_id" type="int" indexed="false" stored="false"/>
-        <field name="carrier" type="string" indexed="true" stored="true"/>
+        <field name="carrier" type="string" indexed="false" stored="true"/>
         <field name="fl_num" type="int" indexed="true" stored="true"/>
         <field name="origin_airport_id" type="int" indexed="true" stored="true"/>
-        <field name="origin" type="string" indexed="true" stored="true"/>
+        <field name="origin" type="string" indexed="false" stored="true"/>
         <field name="origin_city_name" type="string" indexed="false" stored="false"/>
         <field name="origin_state_abr" type="string" indexed="false" stored="false"/>
-        <field name="dest" type="string" indexed="true" stored="true"/>
+        <field name="dest" type="string" indexed="false" stored="true"/>
         <field name="dest_city_name" type="string" indexed="false" stored="false"/>
         <field name="dest_state_abr" type="string" indexed="false" stored="false"/>
         <field name="dep_time" type="date" indexed="true" stored="true"/>
@@ -48,7 +48,7 @@
         <field name="distance" type="int" indexed="false" stored="false"/>
     </fields>
 
-    <defaultSearchField>dep_time</defaultSearchField>
+    <defaultSearchField>origin_airport_id</defaultSearchField>
     <uniqueKey>(id)</uniqueKey>
 
 </schema>

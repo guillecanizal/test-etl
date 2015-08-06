@@ -81,7 +81,7 @@ public class WebApp {
             @Override
             public Object handle(Request request, Response response) {
                 SolrQueriesDAO solrQueryDAO = new SolrQueriesDAO();
-                int numFlight = Integer.parseInt(request.queryParams("numFlight"));
+                int numFlight = Integer.parseInt(request.queryParams("originAirportId"));
                 int rows = Integer.parseInt(request.queryParams("rows"));
                 String json = solrQueryDAO.listFlightsByAirportSortedByTime(numFlight, rows);
                 response.type("application/json");

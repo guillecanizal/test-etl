@@ -17,8 +17,9 @@
 
                    <p>List all flights leaving a particular airport, sorted by time</p>
                    <form action="/solr-query-flights" method="get">
-                     Flight Number: <br>
-                     <input type="number" name="numFlight" value="12954"><br>
+                     Origin Airport Id: <br>
+                     <input type="number" name="originAirportId" value="12954"><br>
+                     Rows: <br>
                      <input type="number" name="rows" value="10"><br>
                      <input type="submit" value="Submit">
                    </form>
@@ -27,6 +28,7 @@
                    <form action="/solr-query-buckets" method="get">
                      Limit: <br>
                      <input type="number" name="limit"><br>
+                     Rows: <br>
                      <input type="number" name="rows" value="10"><br>
                      <input type="submit" value="Submit">
                    </form>
