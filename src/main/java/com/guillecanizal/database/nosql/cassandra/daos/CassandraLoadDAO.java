@@ -8,7 +8,7 @@ import com.guillecanizal.common.MyLogger;
 import com.guillecanizal.database.dao.LoadDAO;
 import com.guillecanizal.database.nosql.cassandra.CassandraDBManager;
 import com.guillecanizal.database.nosql.cassandra.models.CassandraFlight;
-import com.guillecanizal.etl.model.Flight;
+import com.guillecanizal.models.Flight;
 
 import java.util.Iterator;
 import java.util.List;
@@ -52,18 +52,20 @@ public class CassandraLoadDAO extends LoadDAO {
 
             Mapper mapper = ((CassandraDBManager) this.dbManager).getManager().mapper(CassandraFlight.class);
             //BatchStatement batch = new BatchStatement();
-
             Iterator<Flight> flightsIterator = models.iterator();
+            CassandraFlight cassandraFlight;
+            Flight f;
+            int count = 0;
             while (flightsIterator.hasNext()) {
-                Flight f = (Flight) flightsIterator.next();
-                CassandraFlight cassandraFlight = this.transformFlight(f);
+                f = (Flight) flightsIterator.next();
+                cassandraFlight = this.transformFlight(f);
                 mapper.saveAsync(cassandraFlight);
-                saveIndexQueryOne(((CassandraDBManager) this.dbManager).getSession(), cassandraFlight);
-                saveIndexQueryTwo(((CassandraDBManager) this.dbManager).getSession(), cassandraFlight);
-
+                //saveIndexQueryOne(((CassandraDBManager) this.dbManager).getSession(), cassandraFlight);
+                //saveIndexQueryTwo(((CassandraDBManager) this.dbManager).getSession(), cassandraFlight);
+                //System.out.println(count);
+                count++;
             }
         } catch (Exception e) {
-
             MyLogger.logger.throwing("CassandraLoadDAO", "loadFlightsInDB", e);
             response = false;
         }

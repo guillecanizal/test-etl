@@ -1,7 +1,7 @@
 package com.guillecanizal.etl;
 
 import com.google.inject.Inject;
-import com.guillecanizal.etl.model.Flight;
+import com.guillecanizal.models.Flight;
 
 import java.sql.Date;
 import java.text.ParseException;
@@ -39,7 +39,8 @@ public class TransformFlights extends Transform {
         flight.setDepTime(this.transformStringToDate("HHmm", this.transformStringHour(csvLine[14])));
         flight.setArrTime(this.transformStringToDate("HHmm", this.transformStringHour(csvLine[15])));
         flight.setActualElapsedTime(this.transformStringToDate("HHmm", this.transformStringHour(csvLine[16])));
-        flight.setAirTime(this.transformStringToDate("HHmm", this.transformStringHour(csvLine[17])));
+        //FIXME son minutos
+        flight.setAirTime(transformMinutesToDate(csvLine[17]));
         flight.setDistance(Integer.parseInt(csvLine[18]));
         return flight;
 
@@ -65,5 +66,13 @@ public class TransformFlights extends Transform {
             hourTransformed = "0" + hour;
         }
         return hourTransformed;
+    }
+
+    private Date transformMinutesToDate(String minutes) {
+        java.sql.Date sqlDate;
+        int minutesInt = Integer.parseInt(minutes);
+        long milliSeconds = minutesInt * 60 * 1000;
+        sqlDate = new Date(milliSeconds);
+        return sqlDate;
     }
 }

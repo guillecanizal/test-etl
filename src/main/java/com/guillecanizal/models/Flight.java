@@ -1,4 +1,4 @@
-package com.guillecanizal.etl.model;
+package com.guillecanizal.models;
 
 import java.sql.Date;
 

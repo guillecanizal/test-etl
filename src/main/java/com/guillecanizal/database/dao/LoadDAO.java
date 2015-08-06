@@ -1,7 +1,7 @@
 package com.guillecanizal.database.dao;
 
 import com.guillecanizal.database.DBManager;
-import com.guillecanizal.etl.model.Flight;
+import com.guillecanizal.models.Flight;
 
 import java.util.List;
 

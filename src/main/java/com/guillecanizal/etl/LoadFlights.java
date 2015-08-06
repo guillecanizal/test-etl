@@ -4,7 +4,7 @@ import com.google.inject.Inject;
 import com.guillecanizal.common.MyLogger;
 import com.guillecanizal.database.DBManager;
 import com.guillecanizal.database.dao.LoadDAO;
-import com.guillecanizal.etl.model.Flight;
+import com.guillecanizal.models.Flight;
 
 import java.util.List;
 

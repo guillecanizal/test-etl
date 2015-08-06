@@ -4,7 +4,7 @@ import com.guillecanizal.common.MyLogger;
 import com.guillecanizal.database.dao.LoadDAO;
 import com.guillecanizal.database.nosql.mongodb.MongoDBManager;
 import com.guillecanizal.database.nosql.mongodb.models.MongoFlight;
-import com.guillecanizal.etl.model.Flight;
+import com.guillecanizal.models.Flight;
 
 import java.util.Iterator;
 import java.util.List;

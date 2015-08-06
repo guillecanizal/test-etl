@@ -3,6 +3,7 @@ package com.guillecanizal.webapp;
 import com.google.inject.Guice;
 import com.google.inject.Injector;
 import com.guillecanizal.common.MyLogger;
+import com.guillecanizal.database.nosql.cassandra.daos.SolrQueriesDAO;
 import com.guillecanizal.dependency_injection.ModuleCassandra;
 import com.guillecanizal.dependency_injection.ModuleMongo;
 import com.guillecanizal.etl.ETL;
@@ -76,6 +77,33 @@ public class WebApp {
                 template.process(root, writer);
             }
         });
+        get(new Route("/solr-query-flights") {
+            @Override
+            public Object handle(Request request, Response response) {
+                SolrQueriesDAO solrQueryDAO = new SolrQueriesDAO();
+                int numFlight = Integer.parseInt(request.queryParams("numFlight"));
+                int rows = Integer.parseInt(request.queryParams("rows"));
+                String json = solrQueryDAO.listFlightsByAirportSortedByTime(numFlight, rows);
+                response.type("application/json");
+                return json;
+            }
+
+
+        });
+        get(new Route("/solr-query-buckets") {
+            @Override
+            public Object handle(Request request, Response response) {
+                SolrQueriesDAO solrQueryDAO = new SolrQueriesDAO();
+                int limit = Integer.parseInt(request.queryParams("limit"));
+                int rows = Integer.parseInt(request.queryParams("rows"));
+                String json = solrQueryDAO.listAirTimeBuckets(limit, rows);
+                response.type("application/json");
+                return json;
+            }
+
+
+        });
+
         get(new FreemarkerBasedRoute("/", "index.ftl") {
             @Override
             protected void doHandle(Request request, Response response, Writer writer) throws IOException, TemplateException {
